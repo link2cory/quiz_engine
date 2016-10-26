@@ -1,1 +1,4 @@
 db.sqlite3
+geckodriver.log
+quiz_engine.sublime-project
+quiz_engine.sublime-workspace
