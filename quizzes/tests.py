@@ -33,3 +33,12 @@ class HomePageTest(MyTestCase):
         response = home_page(request)
         expected_html = render_to_string('home.html', request=request)
         self.assertEqualExceptCSRF(expected_html, response.content.decode())
+
+    def test_home_page_handles_POST_request_correct_answer(self):
+        request = HttpRequest()
+        request.method = 'POST'
+        request.POST['answer'] = 'John'
+
+        response = home_page(request)
+
+        self.assertIn('Correct!', response.content.decode())
