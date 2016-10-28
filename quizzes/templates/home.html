@@ -4,13 +4,14 @@
     </head>
     <body>
         <h1>Quiz Time!</h1>
-        <form id="id_question">
+        <form id="id_question" method="POST">
             <div class="question_text">What is Your Name?</div>
             <input type="radio" class="answer" name="John">John<br>
             <input type="radio" class="answer" name="Jacob">Jacob<br>
             <input type="radio" class="answer" name="Jingleheimer">Jingleheimer<br>
             <input type="radio" class="answer" name="Schmidt">Schmidt<br>
             <input type="submit" class="submit">
+            {% csrf_token %}
         </form>
     </body>
 </html>
