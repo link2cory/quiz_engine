@@ -44,7 +44,12 @@ class NewVisitorTest(unittest.TestCase):
         result = self.browser.find_element_by_id('id_result')
         result_text = result.find_element_by_class_name('result_text')
 
-        self.assertEqual('Correct!', result_text.text)
+        self.assertEqual(
+            'Correct!',
+            result_text.text,
+            'Unexpected result text. Expected "Correct!" --- Found: "%s"'
+            % (result_text.text)
+        )
 
         question = self.browser.find_element_by_id('id_question')
         question_text = question.find_element_by_class_name('question_text')
