@@ -4,12 +4,15 @@
     </head>
     <body>
         <h1>Quiz Time!</h1>
+        <div id="id_result">
+            <div class="result_text">{{ result }}</div>
+        </div>
         <form id="id_question" method="POST">
             <div class="question_text">What is Your Name?</div>
-            <input type="radio" class="answer" name="John">John<br>
-            <input type="radio" class="answer" name="Jacob">Jacob<br>
-            <input type="radio" class="answer" name="Jingleheimer">Jingleheimer<br>
-            <input type="radio" class="answer" name="Schmidt">Schmidt<br>
+            <input type="radio" class="answer" name="answer" value="John">John<br>
+            <input type="radio" class="answer" name="answer" value="Jacob">Jacob<br>
+            <input type="radio" class="answer" name="answer" value="Jingleheimer">Jingleheimer<br>
+            <input type="radio" class="answer" name="answer" value="Schmidt">Schmidt<br>
             <input type="submit" class="submit">
             {% csrf_token %}
         </form>
