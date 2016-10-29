@@ -4,6 +4,7 @@ from django.test import TestCase
 from django.http import HttpRequest
 
 from quizzes.views import home_page
+from quizzes.models import Question
 
 import re
 
@@ -51,3 +52,24 @@ class HomePageTest(MyTestCase):
         response = home_page(request)
 
         self.assertIn('Wrong!', response.content.decode())
+
+
+class QuestionModelTest(TestCase):
+
+    def test_saving_and_retrieving_questions(self):
+        first_question = Question()
+        first_question.text = 'What is Your Name?'
+        first_question.save()
+
+        second_question = Question()
+        second_question.text = 'What is Your Favorite Color?'
+        second_question.save()
+
+        saved_questions = Question.objects.all()
+        self.assertEqual(saved_questions.count(), 2)
+
+        first_saved_question = saved_questions[0]
+        second_saved_question = saved_questions[1]
+
+        self.assertEqual(first_saved_question.text, first_question.text)
+        self.assertEqual(second_saved_question.text, second_question.text)
