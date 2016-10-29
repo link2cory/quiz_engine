@@ -42,3 +42,12 @@ class HomePageTest(MyTestCase):
         response = home_page(request)
 
         self.assertIn('Correct!', response.content.decode())
+
+    def test_home_page_handles_POST_request_incorrect_answer(self):
+        request = HttpRequest()
+        request.method = 'POST'
+        request.POST['answer'] = 'Jacob'
+
+        response = home_page(request)
+
+        self.assertIn('Wrong!', response.content.decode())
