@@ -27,11 +27,15 @@ class NewVisitorTest(unittest.TestCase):
         # the question contains question text, 4 possible answers, and a submit
         # button
         question = self.browser.find_element_by_id('id_question')
+        question_number = question.find_element_by_class_name(
+            'question_number'
+        )
         question_text = question.find_element_by_class_name('question_text')
         question_answers = question.find_elements_by_class_name('answer')
         submit_button = question.find_element_by_class_name('submit')
 
         self.assertEqual(len(question_answers), 4)
+        self.assertEqual(question_number.text, '1')
         # He clicks one of the four answers, it is now the selected answer
         question_answers[0].click()
 
@@ -52,12 +56,16 @@ class NewVisitorTest(unittest.TestCase):
         )
 
         question = self.browser.find_element_by_id('id_question')
+        question_number = question.find_element_by_class_name(
+            'question_number'
+        )
         question_text = question.find_element_by_class_name('question_text')
         question_answers = question.find_elements_by_class_name('answer')
         submit_button = question.find_element_by_class_name('submit')
 
         self.assertEqual(len(question_answers), 4)
-        self.fail("finish the test!")
+        self.assertEqual(question_number.text, '2')
+
         # John wonders whether the site will remember his progress if he
         # leaves and returns to the site.  Then he sees that the site has
         # generated a unique URL for him -- there is some explanatory text to
