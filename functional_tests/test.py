@@ -29,7 +29,7 @@ class NewVisitorTest(LiveServerTestCase):
         # its homepage
         self.browser.get(self.live_server_url)
 
-        # He notices the page title and header mention quizes
+        # He notices the page title and header mention quizzes
         header_text = self.browser.find_element_by_tag_name('h1').text
 
         self.assertIn('Quiz Time!', self.browser.title)
