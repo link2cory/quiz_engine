@@ -35,7 +35,7 @@ class NewVisitorTest(unittest.TestCase):
         submit_button = question.find_element_by_class_name('submit')
 
         self.assertEqual(len(question_answers), 4)
-        self.assertEqual(question_number.text, '1')
+        self.assertEqual(question_number.text, 'Question Number: 1')
         # He clicks one of the four answers, it is now the selected answer
         question_answers[0].click()
 
@@ -64,7 +64,7 @@ class NewVisitorTest(unittest.TestCase):
         submit_button = question.find_element_by_class_name('submit')
 
         self.assertEqual(len(question_answers), 4)
-        self.assertEqual(question_number.text, '2')
+        self.assertEqual(question_number.text, 'Question Number: 2')
 
         # John wonders whether the site will remember his progress if he
         # leaves and returns to the site.  Then he sees that the site has
