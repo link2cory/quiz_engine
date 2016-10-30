@@ -81,10 +81,9 @@ class QuestionModelTest(TestCase):
         second_question.save()
 
         saved_questions = Question.objects.all()
-        self.assertEqual(saved_questions.count(), 2)
-
         first_saved_question = saved_questions[0]
         second_saved_question = saved_questions[1]
 
+        self.assertEqual(saved_questions.count(), 2)
         self.assertEqual(first_saved_question.text, first_question.text)
         self.assertEqual(second_saved_question.text, second_question.text)
