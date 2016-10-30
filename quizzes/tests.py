@@ -57,6 +57,10 @@ class HomePageTest(MyTestCase):
 
         self.assertIn('Correct!', response.content.decode())
         self.assertIn('Question Number: 2', response.content.decode())
+        self.assertIn(
+            'What is Your Favorite Color?',
+            response.content.decode()
+        )
 
     def test_home_page_handles_POST_request_incorrect_answer(self):
         request = HttpRequest()
@@ -67,6 +71,10 @@ class HomePageTest(MyTestCase):
 
         self.assertIn('Wrong!', response.content.decode())
         self.assertIn('Question Number: 2', response.content.decode())
+        self.assertIn(
+            'What is Your Favorite Color?',
+            response.content.decode()
+        )
 
 
 class QuestionModelTest(TestCase):

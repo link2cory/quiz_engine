@@ -1,6 +1,8 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
+from .models import Question
+
 
 def home_page(request):
     result = ''
@@ -18,6 +20,7 @@ def home_page(request):
         'home.html',
         {
             'result': result,
-            'question_number': question_number
+            'question_number': question_number,
+            'question_text': Question.objects.get(pk=question_number).text
         }
     )
