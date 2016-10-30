@@ -4,12 +4,22 @@ from selenium import webdriver
 from selenium import webdriver
 import unittest
 
+from quizzes.models import Question
+
 
 class NewVisitorTest(LiveServerTestCase):
 
     def setUp(self):
         self.browser = webdriver.Firefox()
         self.browser.implicitly_wait(3)
+
+        first_question = Question()
+        first_question.text = 'What is Your Name?'
+        first_question.save()
+
+        second_question = Question()
+        second_question.text = 'What is Your Favorite Color?'
+        second_question.save()
 
     def tearDown(self):
         self.browser.quit()
