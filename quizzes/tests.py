@@ -25,15 +25,28 @@ class MyTestCase(TestCase):
 
 class HomePageTest(MyTestCase):
 
+    def setUp(self):
+        first_question = Question()
+        first_question.text = 'What is Your Name?'
+        first_question.save()
+
+        second_question = Question()
+        second_question.text = 'What is Your Favorite Color?'
+        second_question.save()
+
     def test_root_url_resolves_to_home_page_view(self):
         found = resolve('/')
+
         self.assertEqual(found.func, home_page)
 
     def test_home_page_returns_correct_html(self):
         request = HttpRequest()
+
         response = home_page(request)
         expected_html = render_to_string('home.html', request=request)
-        self.assertEqualExceptCSRF(expected_html, response.content.decode())
+
+        self.assertIn('What is Your Name?', response.content.decode())
+        self.assertIn('Question Number: 1', response.content.decode())
 
     def test_home_page_handles_POST_request_correct_answer(self):
         request = HttpRequest()
@@ -43,6 +56,7 @@ class HomePageTest(MyTestCase):
         response = home_page(request)
 
         self.assertIn('Correct!', response.content.decode())
+        self.assertIn('Question Number: 2', response.content.decode())
 
     def test_home_page_handles_POST_request_incorrect_answer(self):
         request = HttpRequest()
@@ -52,6 +66,7 @@ class HomePageTest(MyTestCase):
         response = home_page(request)
 
         self.assertIn('Wrong!', response.content.decode())
+        self.assertIn('Question Number: 2', response.content.decode())
 
 
 class QuestionModelTest(TestCase):
