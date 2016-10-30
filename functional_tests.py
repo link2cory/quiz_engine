@@ -17,9 +17,9 @@ class NewVisitorTest(unittest.TestCase):
         self.browser.get('http://localhost:8000')
 
         # He notices the page title and header mention quizes
-        self.assertIn('Quiz Time!', self.browser.title)
-
         header_text = self.browser.find_element_by_tag_name('h1').text
+
+        self.assertIn('Quiz Time!', self.browser.title)
         self.assertIn('Quiz Time!', header_text)
 
         # He is invited to answer a multiple-choice question with 4 possible
