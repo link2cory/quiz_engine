@@ -1,25 +1,54 @@
+import random
+import string
+import unittest
 from django.test import LiveServerTestCase
 from selenium import webdriver
 
 from selenium import webdriver
-import unittest
 
 from quizzes.models import Question
 
 
 class NewVisitorTest(LiveServerTestCase):
 
+    def get_random_word(self, length):
+        return ''.join(random.choice(string.ascii_letters) for i in range(length))
+
+    def setUp_random_question_texts(self):
+        self.first_question_text = self.get_random_word(128)
+        self.second_question_text = self.get_random_word(128)
+
+    def setUp_random_answer_texts(self):
+        self.first_question_answers = []
+        self.second_question_answers = []
+
+        for x in range(0, 4):
+            self.first_question_answers.append(self.get_random_word(128))
+            self.second_question_answers.append(self.get_random_word(128))
+
+    def setUp_questions(self):
+        self.setUp_random_question_texts()
+        self.setUp_random_answer_texts()
+
+        first_question = Question()
+        first_question.text = self.first_question_text
+        first_question.save()
+
+        second_question = Question()
+        second_question.text = self.second_question_text
+        second_question.save()
+
+        for text in self.first_question_answers:
+            first_question.answer.create(text=text)
+
+        for text in self.first_question_answers:
+            second_question.answer.create(text=text)
+
     def setUp(self):
         self.browser = webdriver.Firefox()
         self.browser.implicitly_wait(3)
 
-        first_question = Question()
-        first_question.text = 'What is Your Name?'
-        first_question.save()
-
-        second_question = Question()
-        second_question.text = 'What is Your Favorite Color?'
-        second_question.save()
+        self.setUp_questions()
 
     def tearDown(self):
         self.browser.quit()
@@ -49,7 +78,7 @@ class NewVisitorTest(LiveServerTestCase):
 
         self.assertEqual(len(question_answers), 4)
         self.assertEqual(question_number.text, 'Question Number: 1')
-        self.assertEqual(question_text.text, "What is Your Name?")
+        self.assertEqual(question_text.text, self.first_question_text)
 
         # He clicks one of the four answers, it is now the selected answer
         question_answers[0].click()
@@ -80,7 +109,7 @@ class NewVisitorTest(LiveServerTestCase):
 
         self.assertEqual(len(question_answers), 4)
         self.assertEqual(question_number.text, 'Question Number: 2')
-        self.assertEqual(question_text.text, "What is Your Favorite Color?")
+        self.assertEqual(question_text.text, self.second_question_text)
 
         # John wonders whether the site will remember his progress if he
         # leaves and returns to the site.  Then he sees that the site has
