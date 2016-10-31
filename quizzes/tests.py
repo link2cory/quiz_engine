@@ -30,9 +30,19 @@ class HomePageTest(MyTestCase):
         first_question.text = 'What is Your Name?'
         first_question.save()
 
+        first_question.answer.create(text="John")
+        first_question.answer.create(text="Jacob")
+        first_question.answer.create(text="Jingleheimer")
+        first_question.answer.create(text="Schmidt")
+
         second_question = Question()
         second_question.text = 'What is Your Favorite Color?'
         second_question.save()
+
+        second_question.answer.create(text="Red")
+        second_question.answer.create(text="Blue")
+        second_question.answer.create(text="Yellow")
+        second_question.answer.create(text="I Don't Know")
 
     def test_root_url_resolves_to_home_page_view(self):
         found = resolve('/')

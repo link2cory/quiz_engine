@@ -10,11 +10,11 @@
         <form id="id_question" method="POST">
             <div class="question_number">Question Number: {{ question_number }}</div>
             <div class="question_text">{{ question_text }}</div>
-            <input type="radio" class="answer" name="answer" value="John">John<br>
-            <input type="radio" class="answer" name="answer" value="Jacob">Jacob<br>
-            <input type="radio" class="answer" name="answer" value="Jingleheimer">Jingleheimer<br>
-            <input type="radio" class="answer" name="answer" value="Schmidt">Schmidt<br>
+            {% for answer in answers %}
+            <input type="radio" class="answer" name="answer" value={{answer}}>{{answer}}<br>
+            {% endfor %}
             <input type="submit" class="submit">
+
             {% csrf_token %}
         </form>
     </body>

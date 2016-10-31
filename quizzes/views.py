@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
-from .models import Question
+from .models import Question, Answer
 
 
 def home_page(request):
@@ -15,12 +15,22 @@ def home_page(request):
         else:
             result = 'Wrong!'
 
+    question = Question.objects.get(pk=question_number)
+
+    answers = Answer.objects.filter(question=question)
+
+    answer_texts = []
+
+    for a in answers:
+        answer_texts.append(a.text)
+
     return render(
         request,
         'home.html',
         {
             'result': result,
             'question_number': question_number,
-            'question_text': Question.objects.get(pk=question_number).text
+            'question_text': question.text,
+            'answers': answer_texts
         }
     )
